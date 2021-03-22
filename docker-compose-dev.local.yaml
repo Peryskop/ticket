@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  ticket-mysql:
+    container_name: ticket-mysql-dev-local
+    ports:
+      - '33060:3306'
+  ticket-php:
+    container_name: ticket-php-dev-local
+    ports:
+      - '2222:22'
+    volumes:
+      - ticket-api-vendor-sync:/app/vendor
+      - ticket-api-app-sync:/app
+    environment:
+      APP_ENV: dev
+      APP_VERSION: dev
+      DATABASE_URL: mysql://root:@ticket-mysql:3306/ticket
+
+  ticket-nginx:
+    container_name: ticket-nginx-dev-local
+    ports:
+      - '9090:80'
+    volumes:
+      - ticket-api-vendor-sync:/app/vendor
+      - ticket-api-app-sync:/app
+
+volumes:
+  ticket-api-vendor-sync:
+    external: true
+  ticket-api-app-sync:
+    external: true

@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  ticket-mysql:
+    image: mysql:5.7
+    command: --sql_mode=""
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    volumes:
+      - ticket_db_data:/var/lib/mysql
+
+  ticket-php:
+    build: docker/php-fpm
+    working_dir: /app
+    volumes:
+      - ./docker/php-fpm/php.ini:/usr/local/etc/php/php.ini:ro
+      - .:/app:cached
+    depends_on:
+      - ticket-mysql
+
+  ticket-nginx:
+    image: nginx:latest
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/app:cached
+    depends_on:
+      - ticket-php
+
+volumes:
+  ticket_db_data:

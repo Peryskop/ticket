@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  ticket-mysql:
+    container_name: ticket-mysql-stage
+    ports:
+      - '33062:3306'
+
+  ticket-php:
+    container_name: ticket-php-stage
+    environment:
+      APP_ENV: prod
+      APP_VERSION: prod
+      DATABASE_URL: mysql://root:@ticket-mysql:3306/ticket_stage
+
+  ticket-nginx:
+    container_name: ticket-nginx-stage
+    ports:
+      - '8082:80'
