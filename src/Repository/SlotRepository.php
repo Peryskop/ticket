@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\MovieDate;
 use App\Entity\Slot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,22 +20,34 @@ class SlotRepository extends ServiceEntityRepository
         parent::__construct($registry, Slot::class);
     }
 
-    // /**
-    //  * @return Slot[] Returns an array of Slot objects
-    //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findFreeSlots(MovieDate $value)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery(
+            '
+                SELECT s
+                FROM App\Entity\Slot s
+                JOIN App\Entity\Ticket t
+                JOIN App\Entity\MovieDate md WITH md.id = :movieDate
+                JOIN App\Entity\Room r WITH md.room = r.id
+                WHERE s.room = r AND s.id NOT IN
+                    (
+                        SELECT sl 
+                        FROM App\Entity\Slot sl
+                        JOIN App\Entity\Ticket ti
+                        WHERE sl.id = ti.slot AND ti.movieDate = :movieDate
+                    )
+                ORDER BY s.id ASC            
+            '
+        )->setParameter('movieDate', $value->getId());
+
+        return $query->getResult();
+
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Slot
@@ -48,3 +61,13 @@ class SlotRepository extends ServiceEntityRepository
     }
     */
 }
+
+//$query = $em->createQuery(
+//    '
+//                SELECT s
+//                FROM App\Entity\Slot s
+//                JOIN App\Entity\Ticket t
+//                WHERE s.id = t.slot AND t.movieDate = :movieDate
+//                ORDER BY s.id ASC
+//            '
+//)->setParameter('movieDate', $value->getId());

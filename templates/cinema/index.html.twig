@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CinemaController!{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +8,17 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Dostępne kina:</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/app/src/Controller/CinemaController.php'|file_link(0) }}">src/Controller/CinemaController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/app/templates/cinema/index.html.twig'|file_link(0) }}">templates/cinema/index.html.twig</a></code></li>
-    </ul>
 </div>
+
+    <div class="container">
+        {% for cinema in cinemas %}
+            <div class="row">
+                <div class="col-sm">{{ cinema.address }}</div>
+                <div class="col-sm"><a href="/cinemas/{{ cinema.id }}/movies"> Pokaż filmy</a></div>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

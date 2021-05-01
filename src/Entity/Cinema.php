@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CinemaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,7 +27,17 @@ class Cinema
     /**
      * @ORM\Column(type="integer")
      */
-    private $status;
+    private $status = 0;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="cinema")
+     */
+    private $movies;
+
+    public function __construct()
+    {
+        $this->movies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

@@ -26,12 +26,7 @@ class Slot
     /**
      * @ORM\Column(type="integer")
      */
-    private $locationX;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $locationY;
+    private $chair;
 
     /**
      * @ORM\Column(type="integer")
@@ -55,26 +50,14 @@ class Slot
         return $this;
     }
 
-    public function getLocationX(): ?int
+    public function getChair(): ?int
     {
-        return $this->locationX;
+        return $this->chair;
     }
 
-    public function setLocationX(int $locationX): self
+    public function setChair(int $chair): self
     {
-        $this->locationX = $locationX;
-
-        return $this;
-    }
-
-    public function getLocationY(): ?int
-    {
-        return $this->locationY;
-    }
-
-    public function setLocationY(int $locationY): self
-    {
-        $this->locationY = $locationY;
+        $this->chair = $chair;
 
         return $this;
     }
