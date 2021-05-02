@@ -56,7 +56,7 @@ class MovieController extends AbstractController
     {
         return $this->render('movie/index.html.twig', [
             'cinema' => $cinema,
-            'movies' => $this->movieRepository->findBy(["cinema" => $cinema])
+            'movies' => $this->movieRepository->findBy(["cinema" => $cinema, "status" => 0])
         ]);
     }
 
