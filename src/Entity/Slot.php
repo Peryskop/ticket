@@ -31,7 +31,7 @@ class Slot
     /**
      * @ORM\Column(type="integer")
      */
-    private $status;
+    private $status = 0;
 
     public function getId(): ?int
     {

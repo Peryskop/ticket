@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {{ form(form) }}
+        <br>
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center">
+                <h2>Terminy</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">Sala</div>
+            <div class="col-sm-3">Status</div>
+            <div class="col-sm-3">Data</div>
+            <div class="col-sm-2">Akcje</div>
+            <div class="col-sm-1"></div>
+        </div>
+        <hr>
+        {% for movieDate in movieDates %}
+            <div class="row">
+                <div class="col-sm-3">{{ movieDate.room.roomNumber }}</div>
+                <div class="col-sm-3">{{ movieDate.status | status }}</div>
+                <div class="col-sm-3">{{ movieDate.date | date }}</div>
+                <div class="col-sm-3">{% if movieDate.status == 0 %}<a href="dates/{{ movieDate.id }}/hide">Dezaktywuj</a> {% else %} <a href="dates/{{ movieDate.id }}/unhide">Aktywuj</a> {% endif %}</div>
+            </div>
+            <br>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

@@ -15,16 +15,24 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SlotRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var TicketRepository
+     */
+    private $ticketRepository;
+
+    public function __construct(ManagerRegistry $registry, TicketRepository $ticketRepository)
     {
         parent::__construct($registry, Slot::class);
+        $this->ticketRepository = $ticketRepository;
     }
 
 
-    public function findFreeSlots(MovieDate $value)
+    public function findFreeSlots(MovieDate $movieDate)
     {
 
         $em = $this->getEntityManager();
+
+        if ($this->ticketRepository->findOneBy(['movieDate' => $movieDate]) === null) return $this->findBy(['room' => $movieDate->getRoom()])  ;
 
         $query = $em->createQuery(
             '
@@ -42,7 +50,7 @@ class SlotRepository extends ServiceEntityRepository
                     )
                 ORDER BY s.id ASC            
             '
-        )->setParameter('movieDate', $value->getId());
+        )->setParameter('movieDate', $movieDate->getId());
 
         return $query->getResult();
 

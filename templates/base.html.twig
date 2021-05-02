@@ -29,9 +29,14 @@
                     </li>
 
                     <li class="ml-auto">
-                        {% if app.user != null %}
-                            <a class="nav-link" href="/logout">Wyloguj się<span class="sr-only">(current)</span></a>
-                        {% endif %}
+                        <div class="row">
+                            {% if app.user != null and is_granted('ROLE_ADMIN')%}
+                                <a class="nav-link" href="/admin">Admin panel<span class="sr-only">(current)</span></a>
+                            {% endif %}
+                            {% if app.user != null %}
+                                <a class="nav-link" href="/logout">Wyloguj się<span class="sr-only">(current)</span></a>
+                            {% endif %}
+                        </div>
                     </li>
                 </ul>
             </div>

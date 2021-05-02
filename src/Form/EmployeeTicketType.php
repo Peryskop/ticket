@@ -40,7 +40,6 @@ class EmployeeTicketType extends AbstractType
     {
         $movieDate = $options["movieDate"];
         $slots = $this->slotRepository->findFreeSlots($movieDate);
-
         $user = $this->security->getUser();
 
         $formatted = [];

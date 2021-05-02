@@ -34,6 +34,17 @@ class Room
      */
     private $slots;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Cinema::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cinema;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status=0;
+
     public function __construct()
     {
         $this->movieDate = new ArrayCollection();
@@ -113,6 +124,30 @@ class Room
                 $slot->setRoom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCinema(): ?Cinema
+    {
+        return $this->cinema;
+    }
+
+    public function setCinema(?Cinema $cinema): self
+    {
+        $this->cinema = $cinema;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

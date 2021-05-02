@@ -8,17 +8,29 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Dostępne kina:</h1>
+
 
 </div>
-
     <div class="container">
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center">
+                <h2>Dostępne filmy</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">Adres</div>
+        </div>
+        <hr>
         {% for cinema in cinemas %}
             <div class="row">
-                <div class="col-sm">{{ cinema.address }}</div>
-                <div class="col-sm"><a href="/cinemas/{{ cinema.id }}/movies"> Pokaż filmy</a></div>
+                <div class="col-sm-3">{{ cinema.address }}</div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><a href="/cinemas/{{ cinema.id }}/movies"> Pokaż filmy</a></div>
                 <hr>
             </div>
+            <br>
         {% endfor %}
     </div>
 {% endblock %}

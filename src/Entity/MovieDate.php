@@ -34,6 +34,11 @@ class MovieDate
      */
     private $room;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class MovieDate
     public function setRoom(?Room $room): self
     {
         $this->room = $room;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

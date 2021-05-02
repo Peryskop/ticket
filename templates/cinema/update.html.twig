@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {{ form(form) }}
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center">
+                <h2>Lista Sal</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">Numer sali</div>
+            <div class="col-sm-4">Status</div>
+            <div class="col-sm-3">Akcje</div>
+            <div class="col-sm-1"><a href="/cinemas/{{ cinema.id }}/rooms/create" class="btn btn-success">+</a></div>
+        </div>
+        <hr>
+        {% for room in rooms %}
+            <div class="row">
+                <div class="col-sm-4">{{ room.roomNumber }}</div>
+                <div class="col-sm-4">{{ room.status | status }}</div>
+                <div class="col-sm-4"><a href="rooms/{{ room.id }}/update">Edytuj</a> | {% if room.status == 0 %} <a href="rooms/{{ room.id }}/hide">Dezaktywuj</a> {% else %} <a href="rooms/{{ room.id }}/unhide">Aktywuj</a> {% endif %}</div>
+            </div>
+            <br>
+        {% endfor %}
+
+        <br><br><br><br>
+
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center">
+                <h2>Lista filmów</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">Tytuł</div>
+            <div class="col-sm-4">Status</div>
+            <div class="col-sm-3">Akcje</div>
+            <div class="col-sm-1"><a href="/cinemas/{{ cinema.id }}/movies/create" class="btn btn-success">+</a></div>
+        </div>
+        <hr>
+        {% for movie in movies %}
+            <div class="row">
+                <div class="col-sm-4">{{ movie.title }}</div>
+                <div class="col-sm-4">{{ movie.status | status }}</div>
+                <div class="col-sm-4"><a href="movies/{{ movie.id }}/update">Edytuj</a> | {% if movie.status == 0 %} <a href="movies/{{ movie.id }}/hide">Dezaktywuj</a> {% else %} <a href="movies/{{ movie.id }}/unhide">Aktywuj</a> {% endif %}</div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+
+{% endblock %}

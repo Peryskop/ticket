@@ -35,6 +35,11 @@ class Movie
      */
     private $cinema;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status = 0;
+
     public function __construct()
     {
         $this->movieDates = new ArrayCollection();
@@ -95,6 +100,18 @@ class Movie
     public function setCinema(?Cinema $cinema): self
     {
         $this->cinema = $cinema;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

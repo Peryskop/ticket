@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center">
+            <h2>Lista kin</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">Adres</div>
+        <div class="col-sm-4">Status</div>
+        <div class="col-sm-3">Akcje</div>
+        <div class="col-sm-1"><a href="/cinemas/create" class="btn btn-success">+</a></div>
+    </div>
+    <hr>
+    {% for cinema in cinemas %}
+        <div class="row">
+            <div class="col-sm-4">{{ cinema.address }}</div>
+            <div class="col-sm-4">{{ cinema.status | status}}</div>
+            <div class="col-sm-4"><a href="/cinemas/{{ cinema.id }}/update">Edytuj</a> | {% if cinema.status == 0 %} <a href="/cinemas/{{ cinema.id }}/hide">Dezaktywuj</a> {% else %} <a href="/cinemas/{{ cinema.id }}/unhide">Aktywuj</a> {% endif %}</div>
+        </div>
+        <br>
+    {% endfor %}
+
+</div>
+{% endblock %}

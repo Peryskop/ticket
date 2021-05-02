@@ -9,12 +9,25 @@
     </style>
 
     <div class="container">
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center">
+                <h2>Dostępne terminy</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">Data</div>
+            <div class="col-sm-3">Sala</div>
+        </div>
+        <hr>
         {% for date in dates %}
             <div class="row">
-                <div class="col-sm">{{ date.date | date("D d/m/Y, G:i") }}, room: {{ date.room.roomNumber }}</div>
-                <div class="col-sm"><a href="/ticket_purchase/{{ date.id }}">Kup bilet</a></div>
-                <hr>
+                <div class="col-sm-3">{{ date.date | date("D d/m/Y, G:i") }}</div>
+                <div class="col-sm-3">{{ date.room.roomNumber }}</div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><a href="/ticket_purchase/{{ date.id }}">Kup bilet</a></div>
             </div>
+            <br>
+
         {% endfor %}
     </div>
 
