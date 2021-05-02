@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\MovieDate;
 use App\Entity\Ticket;
+use App\Form\EmployeeTicketType;
 use App\Form\TicketType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,13 +38,22 @@ class TicketController extends AbstractController
     {
         $ticket = new Ticket();
         $ticket->setMovieDate($movieDate);
-        $form = $this->createForm(TicketType::class, $ticket, ['movieDate' => $movieDate]);
+        if($user = $this->getUser() != null){
+            $ticket->setPurchaseType(1);
+            $form = $this->createForm(EmployeeTicketType::class, $ticket, ['movieDate' => $movieDate]);
+        } else {
+            $form = $this->createForm(TicketType::class, $ticket, ['movieDate' => $movieDate]);
+        }
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $ticket = $form->getData();
             $this->entityManager->persist($ticket);
             $this->entityManager->flush();
+
+            if($user != null){
+                return new RedirectResponse("/print_ticket");
+            }
 
             return new RedirectResponse("/success");
         }
@@ -59,5 +69,13 @@ class TicketController extends AbstractController
     public function success(): Response
     {
         return $this->render('ticket/success.html.twig');
+    }
+
+    /**
+     * @Route("/print_ticket", name="print_ticket")
+     */
+    public function printTicket(): Response
+    {
+        return $this->render('ticket/print.html.twig');
     }
 }

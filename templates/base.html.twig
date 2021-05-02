@@ -22,14 +22,21 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
+            <div class="collapse navbar-collapse navbar-expand-lg" id="navbarNav">
+                <ul class="navbar-nav nav-fill w-100">
+                    <li>
                         <a class="nav-link" href="/cinemas">Kup bilet<span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="ml-auto">
+                        {% if app.user != null %}
+                            <a class="nav-link" href="/logout">Wyloguj się<span class="sr-only">(current)</span></a>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
         </nav>
+
         {% block body %}{% endblock %}
     </body>
 </html>

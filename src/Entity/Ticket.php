@@ -51,6 +51,11 @@ class Ticket
      */
     private $lastName;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $purchaseType = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,6 +129,18 @@ class Ticket
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getPurchaseType(): ?int
+    {
+        return $this->purchaseType;
+    }
+
+    public function setPurchaseType(int $purchaseType): self
+    {
+        $this->purchaseType = $purchaseType;
 
         return $this;
     }
