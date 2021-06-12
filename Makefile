@@ -65,6 +65,12 @@ build_dev:
 start_dev:
 	docker-compose -f docker-compose.yaml -f docker-compose-dev.yaml up -d
 
+build_test:
+	docker-compose -f docker-compose.yaml -f docker-compose-test.yaml build
+
+start_test:
+	docker-compose -f docker-compose.yaml -f docker-compose-test.yaml up -d
+
 stop:
 	docker-compose down
 

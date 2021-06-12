@@ -2,7 +2,7 @@
 
 rm -Rf var/cache/*
 
-mkdir ./config/jwt
+#mkdir ./config/jwt
 
 COMPOSER_ALLOW_SUPERUSER=1 docker-compose exec -T ticket-php composer self-update
 COMPOSER_ALLOW_SUPERUSER=1 docker-compose exec -T ticket-php composer update --no-interaction --classmap-authoritative --optimize-autoloader
